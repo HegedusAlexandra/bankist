@@ -31,3 +31,33 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+//creating and inserting elements
+const header = document.querySelector('header');
+const message = document.createElement('div'); 
+message.classList.add('cookie-message');
+/* message.textContent = 'We use cookies for improved fuctionalty and analytics.'; */
+message.innerHTML =
+  'We use cookies for improved fuctionalty and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+header.prepend(message);
+/* header.append(message); */
+/* header.append(message.cloneNode(true)); */
+header.after(message);
+
+document
+  .querySelector('.btn--close-cookie')
+  .addEventListener('click', function () {
+    message.remove();
+  });
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+/* document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//attributes
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt);
+console.log(logo.className);
+
+logo.alt = 'beatiful minimalist logo'; */
