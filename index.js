@@ -94,14 +94,71 @@ const section1 = document.querySelector('#section--1');
 // document.documentElement.clientHeight --- visible height of the viewport (also works with width)
 
 btnScrollTo.addEventListener('click', e => {
-/*   
+  /*   
   const s1coords = section1.getBoundingClientRect();
-    window.scrollTo({
+  window.scrollTo({
     left: s1coords.left + window.scrollX,
     top: s1coords.top + window.scrollY,
     behavior: 'smooth',
   }); 
 */
 
-  section1.scrollIntoView({behavior: 'smooth'})
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// events : https://html.spec.whatwg.org/multipage/indices.html#events-2
+// events : https://developer.mozilla.org/en-US/docs/Web/Events
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function () {
+  alert('addEventListener: Great!');
+
+  h1.removeEventListener('mouseenter', alertH1);
+};
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+/* h1.onmouseenter = function (e){
+alert('awesome')
+
+OR
+
+<h1 onClick="alert('HTML alert')">
+} */
+
+/* const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`; */
+
+// CAPTURING ANDF BUBBLING
+
+/* document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+  console.log(e.currentTarget === this);
+
+  //e.stopPropagination()
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+  console.log(e.currentTarget === this);
+});
+
+document.querySelector('.nav').addEventListener(
+  'click',
+  function (e) {
+    this.style.backgroundColor = randomColor();
+    console.log('LINK', e.target, e.currentTarget);
+    console.log(e.currentTarget === this);
+  },
+
+  // if set to true is fired in the CAPTURING phase not the BUBBLING
+
+  true
+); */
