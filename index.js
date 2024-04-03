@@ -1,7 +1,8 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
+//////////////////
+// Modal window //
+//////////////////
 
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -32,16 +33,54 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//creating and inserting elements
+////////////////
+// Navigation //
+////////////////
+
+/* 
+
+if we add to 1000 element to an event listener it will couse problem so we use delegation and give to the parent
+
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    const id = this.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+  });
+}); 
+
+so with e.target we refer to the child and only one eventlistener used
+
+*/
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/////////////////////////////////////
+// Creating and inserting elements //
+/////////////////////////////////////
+
 const header = document.querySelector('header');
 const message = document.createElement('div');
+
 message.classList.add('cookie-message');
-/* message.textContent = 'We use cookies for improved fuctionalty and analytics.'; */
+
+// message.textContent = 'We use cookies for improved fuctionalty and analytics.';
+
 message.innerHTML =
   'We use cookies for improved fuctionalty and analytics. <button class="btn btn--close-cookie">Got it!</button>';
-/*header.prepend(message);
- header.append(message); */
-/* header.append(message.cloneNode(true)); */
+
+// header.prepend(message);
+// header.append(message);
+// header.append(message.cloneNode(true));
+
 header.after(message);
 
 document
@@ -55,27 +94,22 @@ message.style.width = '100%';
 message.style.height =
   Number.parseFloat(getComputedStyle(message).height) + 40 + 'px';
 
-/* document.documentElement.style.setProperty('--color-primary', 'orangered') */
+// document.documentElement.style.setProperty('--color-primary', 'orangered')
 
 //attributes
 const logo = document.querySelector('.nav__logo');
 logo.alt = 'beatiful minimalist logo';
-/* 
-logo.setAttribute('company','bankist')
-console.log(logo.getAttribute('company'));
 
-// absolute version of src
+// setAttribute() -- logo.setAttribute('company','bankist')
+// getAttribute() -- console.log(logo.getAttribute('company'));
 
-console.log(logo.src)
+// absolute version of src -- console.log(logo.src)
 
-// relative version of src
+// relative version of src -- console.log(logo.getAttribute('src'))
 
-console.log(logo.getAttribute('src'))
+// const link = document.querySelector('.twitter-link') -- use absolute if href needed link.href for full url
 
-const link = document.querySelector('.twitter-link')
-
-// use absolute if href needed link.href for full url
-
+/* class manipulation 
 logo.classList.add()
 logo.classList.remove()
 logo.classList.toggle()
@@ -121,20 +155,26 @@ h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 
-/* h1.onmouseenter = function (e){
+/* 
+
+h1.onmouseenter = function (e){
 alert('awesome')
+} 
 
 OR
 
 <h1 onClick="alert('HTML alert')">
-} */
 
-/* const randomInt = (min, max) =>
+*/
+
+/* 
+
+const randomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 const randomColor = () =>
   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`; */
 
-// CAPTURING ANDF BUBBLING
+// CAPTURING AND BUBBLING
 
 /* document.querySelector('.nav__link').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
@@ -162,3 +202,52 @@ document.querySelector('.nav').addEventListener(
 
   true
 ); */
+
+////////////////////
+// DOM traversing //
+////////////////////
+
+/* const h1s = document.querySelector('h1')
+
+// going down
+console.log(h1s.querySelectorAll('.highlight'));
+console.log(h1s.childNodes);
+console.log(h1s.children); //only works for direct children
+h1s.firstElementChild.style.color= 'white'
+
+//going up
+console.log(h1s.parentNode);
+console.log(h1s.parentElement);
+
+// opposite of queryselector, it finds parents
+h1.closest('.header').style.background = 'var(--gradient-secondary)'
+
+//siblings
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+//all the siblings
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function(el){
+  if(el !== h1) el.style.transform = 'scale(0.5)'
+}) */
+
+//////////////////////
+// Tabbed component //
+//////////////////////
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+
+  //guard clause
+  if (!clicked) return;
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'))
+  tabs.forEach((t) => t.classList.remove('operations__tab--active'))
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+  clicked.classList.add('operations__tab--active');  
+
+});
