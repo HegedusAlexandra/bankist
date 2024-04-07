@@ -147,7 +147,7 @@ btnScrollTo.addEventListener('click', e => {
 // events : https://html.spec.whatwg.org/multipage/indices.html#events-2
 // events : https://developer.mozilla.org/en-US/docs/Web/Events
 
-const h1 = document.querySelector('h1');
+/* const h1 = document.querySelector('h1');
 
 const alertH1 = function () {
   alert('addEventListener: Great!');
@@ -158,7 +158,7 @@ const alertH1 = function () {
 h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
-
+ */
 /* 
 
 h1.onmouseenter = function (e){
@@ -291,6 +291,7 @@ window.addEventListener('scroll', function () {
 /////////////////////////////////
 // Intersection Observer API  ///
 /////////////////////////////////
+
 const obsCallback = function (entries, observer) {
   entries.forEach(entry => {
     console.log(entry);
@@ -306,17 +307,43 @@ const obsOptions = {
 
 const observer = new IntersectionObserver(obsCallback, obsOptions);
 observer.observe(section1);
+const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
   const [entry] = entries;
   if (!entry.isIntersecting) nav.classList.add('sticky');
-  else nav.classList.remove('sticky')
+  else nav.classList.remove('sticky');
 };
 
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
   threshold: 0,
-  rootMargin:'-90px',
+  rootMargin: `-${navHeight}px`,
 });
 
 headerObserver.observe(header);
+
+//////////////////////
+// Reveal Section  ///
+//////////////////////
+
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  if(!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden')
+  observer.unobserve(entry.target)
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
