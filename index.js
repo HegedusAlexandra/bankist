@@ -62,7 +62,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href');
-    if (id === '/welcome.html') window.location.href = '/welcome.html';
+    if (id === '/bankist/welcome.html') window.location.href = '/welcome.html';
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
