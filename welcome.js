@@ -62,6 +62,8 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 
 // Elements
+const body = document.querySelector('body');
+const mock_data = document.querySelector('.mock_data')
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -86,6 +88,11 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+body.insertAdjacentHTML(
+  'beforeend',
+  "<div class='mock_data'><span>Welcome to my projct what I made according to Jonas Schmedtman's work . If you want to login please use one of the already existing accounts, and test the functionalities.</span><h1>account : ah , pin : 1111<h1><h1>account : jd , pin : 2222<h1><h1>account : stw , pin : 3333<h1></div>"
+);
 
 const formatMovementDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
@@ -268,6 +275,8 @@ btnLogin.addEventListener('click', function (e) {
     if (timer) clearInterval(timer);
     timer = startLogOutTimer();
     updateUI(currentAccount);
+
+    document.querySelector('.mock_data')?.remove();
   }
 });
 
