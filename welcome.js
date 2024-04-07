@@ -91,7 +91,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 body.insertAdjacentHTML(
   'beforeend',
-  "<div class='mock_data'><span>Welcome to my projct what I made according to Jonas Schmedtman's work . If you want to login please use one of the already existing accounts, and test the functionalities.</span><h1>account : ah , pin : 1111<h1><h1>account : jd , pin : 2222<h1><h1>account : stw , pin : 3333<h1></div>"
+  "<div class='mock_data'><span>Welcome to my project what I made according to Jonas Schmedtman's work, if you want to login please use one of the already existing accounts, and test the functionalities.</span><h1>account : ah , pin : 1111<h1><h1>account : jd , pin : 2222<h1><h1>account : stw , pin : 3333<h1></div>"
 );
 
 const formatMovementDate = function (date, locale) {
